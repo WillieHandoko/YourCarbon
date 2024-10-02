@@ -22,39 +22,67 @@ class StatisticsViewModel: ObservableObject {
     @Published var lpgEmissions: Double = 0.0
     @Published var foodWasteEmissions: Double = 0.0
     @Published var weeklyEmissionsData: [EmissionData] = []
+    @Published var emissionDifference: Double = 0.0 // Difference between today and yesterday
+    @Published var isLessThanYesterday: Bool = false // Whether emissions are less than yesterday
 
     let calendar = Calendar.current
 
     // Fetches daily emission data for a specific date
     func fetchDailyData(for date: Date) {
         let today = calendar.startOfDay(for: date)
+        let yesterday = calendar.date(byAdding: .day, value: -1, to: today) ?? Date()
 
-        // Fetch daily data for fuel usage
-        let fuelData = CoreDataManager.shared.fetchFuelUsage().filter {
+        // Today's emissions
+        let fuelDataToday = CoreDataManager.shared.fetchFuelUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        fuelEmissions = fuelData.reduce(0) { $0 + $1.co2Footprint }
+        fuelEmissions = fuelDataToday.reduce(0) { $0 + $1.co2Footprint }
 
-        // Fetch daily data for electricity usage
-        let electricityData = CoreDataManager.shared.fetchElectricityUsage().filter {
+        let electricityDataToday = CoreDataManager.shared.fetchElectricityUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        electricityEmissions = electricityData.reduce(0) { $0 + $1.co2Footprint }
+        electricityEmissions = electricityDataToday.reduce(0) { $0 + $1.co2Footprint }
 
-        // Fetch daily data for LPG usage
-        let lpgData = CoreDataManager.shared.fetchLPGUsage().filter {
+        let lpgDataToday = CoreDataManager.shared.fetchLPGUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        lpgEmissions = lpgData.reduce(0) { $0 + $1.co2Footprint }
+        lpgEmissions = lpgDataToday.reduce(0) { $0 + $1.co2Footprint }
 
-        // Fetch daily data for food waste
-        let foodWasteData = CoreDataManager.shared.fetchFoodWaste().filter {
+        let foodWasteDataToday = CoreDataManager.shared.fetchFoodWaste().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        foodWasteEmissions = foodWasteData.reduce(0) { $0 + $1.co2Footprint }
+        foodWasteEmissions = foodWasteDataToday.reduce(0) { $0 + $1.co2Footprint }
 
-        // Calculate total emissions
+        // Calculate today's total emissions
         totalEmissions = fuelEmissions + electricityEmissions + lpgEmissions + foodWasteEmissions
+
+        // Yesterday's emissions
+        let fuelDataYesterday = CoreDataManager.shared.fetchFuelUsage().filter {
+            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+        }
+        let fuelEmissionsYesterday = fuelDataYesterday.reduce(0) { $0 + $1.co2Footprint }
+
+        let electricityDataYesterday = CoreDataManager.shared.fetchElectricityUsage().filter {
+            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+        }
+        let electricityEmissionsYesterday = electricityDataYesterday.reduce(0) { $0 + $1.co2Footprint }
+
+        let lpgDataYesterday = CoreDataManager.shared.fetchLPGUsage().filter {
+            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+        }
+        let lpgEmissionsYesterday = lpgDataYesterday.reduce(0) { $0 + $1.co2Footprint }
+
+        let foodWasteDataYesterday = CoreDataManager.shared.fetchFoodWaste().filter {
+            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+        }
+        let foodWasteEmissionsYesterday = foodWasteDataYesterday.reduce(0) { $0 + $1.co2Footprint }
+
+        // Calculate yesterday's total emissions
+        let totalEmissionsYesterday = fuelEmissionsYesterday + electricityEmissionsYesterday + lpgEmissionsYesterday + foodWasteEmissionsYesterday
+
+        // Calculate the difference between today and yesterday
+        emissionDifference = totalEmissions - totalEmissionsYesterday
+        isLessThanYesterday = emissionDifference < 0
 
         // Prepare chart data for the current week
         prepareWeeklyEmissionData(for: date)

@@ -69,6 +69,15 @@ struct StatisticsView: View {
                 .font(.largeTitle)
                 .padding()
 
+            // Comparison with Yesterday
+            if viewModel.isLessThanYesterday {
+                Text("\(abs(viewModel.emissionDifference), specifier: "%.2f") kg less than yesterday")
+                    .foregroundColor(.green)
+            } else {
+                Text("\(viewModel.emissionDifference, specifier: "%.2f") kg more than yesterday")
+                    .foregroundColor(.orange)
+            }
+
             // Emissions by Category
             VStack(spacing: 20) {
                 HStack {
