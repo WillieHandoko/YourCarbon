@@ -24,6 +24,7 @@ class HomeViewModel: ObservableObject {
     init() {
         fetchUserDetails()
         calculateTotalFootprint()
+        fetchTodayEmissions()
     }
 
     func fetchUserDetails() {
@@ -53,33 +54,32 @@ class HomeViewModel: ObservableObject {
         totalFootprint = fuelFootprint + electricityFootprint + lpgFootprint + foodWasteFootprint
     }
 
-    // Fetch emissions for today and prepare for chart
     func fetchTodayEmissions() {
         let today = Calendar.current.startOfDay(for: Date())
-
-        // Fetch daily data for fuel usage
+        
+        // Fetch daily data for each category
         let fuelData = CoreDataManager.shared.fetchFuelUsage().filter {
             Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
         }
         let fuelEmissions = fuelData.reduce(0) { $0 + $1.co2Footprint }
-
-        // Fetch daily data for electricity usage
+        
         let electricityData = CoreDataManager.shared.fetchElectricityUsage().filter {
             Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
         }
         let electricityEmissions = electricityData.reduce(0) { $0 + $1.co2Footprint }
 
-        // Fetch daily data for LPG usage
         let lpgData = CoreDataManager.shared.fetchLPGUsage().filter {
             Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
         }
         let lpgEmissions = lpgData.reduce(0) { $0 + $1.co2Footprint }
 
-        // Fetch daily data for food waste
         let foodWasteData = CoreDataManager.shared.fetchFoodWaste().filter {
             Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
         }
         let foodWasteEmissions = foodWasteData.reduce(0) { $0 + $1.co2Footprint }
+
+        // Calculate today's total footprint
+        totalFootprint = fuelEmissions + electricityEmissions + lpgEmissions + foodWasteEmissions
 
         // Prepare today's emission data for the chart
         todayEmissionData = [

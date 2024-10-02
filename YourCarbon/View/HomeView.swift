@@ -105,6 +105,15 @@ struct HomeView: View {
                 .cornerRadius(10)
                 .padding()
 
+                // Display today's total carbon emissions
+                VStack{
+                    Text("Total Carbon Emissions")
+                    Text("Today: \(viewModel.totalFootprint, specifier: "%.2f") kg CO₂")
+                }
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+
                 Spacer()
             }
             .padding()
