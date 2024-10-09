@@ -10,45 +10,66 @@ import Charts
 
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
                 // Username Display
-                if let username = viewModel.username {
-                    Text("Welcome, \(username)")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                } else {
-                    Text("Welcome!")
-                        .font(.largeTitle)
-                        .foregroundColor(.white)
-                }
-
+                //                if let username = viewModel.username {
+                //                    Text("Welcome, \(username)")
+                //                        .font(.largeTitle)
+                //                        .foregroundColor(.white)
+                //                } else {
+                //                    Text("Welcome!")
+                //                        .font(.largeTitle)
+                //                        .foregroundColor(.white)
+                //                }
+                
                 // Carbon Reduction Target
+                
+                LabeledContent("Hello, User") {
+                    Button (action: {
+                        viewModel.showTargetSetting = true
+                    }, label: {
+                        Image(systemName: "info.circle")
+                            .font(.title3)
+                    })
+                }
+                .font(.title)
+                .padding(.horizontal, 25)
+                
                 if let target = viewModel.userTarget {
                     Text("Your target: Reduce \(target, specifier: "%.1f") kg CO₂")
                         .font(.headline)
                         .foregroundColor(viewModel.isOverTarget ? .orange : .green)
-                    Button("Edit Target") {
-                        viewModel.showTargetSetting = true
-                    }
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
-                } else {
-                    Button("Set Target") {
-                        viewModel.showTargetSetting = true
-                    }
-                    .padding()
-                    .background(Color.green)
-                    .foregroundColor(.black)
-                    .cornerRadius(10)
                 }
-
+                
+                
                 // Navigation Links for calculating carbon footprint
                 VStack {
+                    
+                    // Chart to show today's emissions by category
+                    Chart(viewModel.todayEmissionData) { data in
+                        BarMark(
+                            x: .value("Category", data.category),
+                            y: .value("Emissions", data.co2Emission)
+                        )
+                        .foregroundStyle(.yellow)
+                    }
+                    .frame(height: 250)
+                    .background(Color.gray.opacity(0.2))
+                    .cornerRadius(10)
+                    .padding()
+                    
+                    // Display today's total carbon emissions
+                    VStack{
+                        Text("Total Carbon Emissions")
+                        Text("Today: \(viewModel.totalFootprint, specifier: "%.2f") kg CO₂")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+                    
                     HStack {
                         NavigationLink(destination: LPGUsageView()) {
                             Text("LPG Usage")
@@ -91,29 +112,7 @@ struct HomeView: View {
                     }
                 }
                 .padding(.horizontal)
-
-                // Chart to show today's emissions by category
-                Chart(viewModel.todayEmissionData) { data in
-                    BarMark(
-                        x: .value("Category", data.category),
-                        y: .value("Emissions", data.co2Emission)
-                    )
-                    .foregroundStyle(.yellow)
-                }
-                .frame(height: 250)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(10)
-                .padding()
-
-                // Display today's total carbon emissions
-                VStack{
-                    Text("Total Carbon Emissions")
-                    Text("Today: \(viewModel.totalFootprint, specifier: "%.2f") kg CO₂")
-                }
-                    .font(.title3)
-                    .foregroundColor(.white)
-                    .padding(.top, 10)
-
+                
                 Spacer()
             }
             .padding()
