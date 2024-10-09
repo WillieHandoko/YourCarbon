@@ -1,10 +1,3 @@
-//
-//  StatisticsViewModel.swift
-//  YourCarbon
-//
-//  Created by William Handoko on 02/10/24.
-//
-
 import SwiftUI
 import CoreData
 
@@ -24,6 +17,12 @@ class StatisticsViewModel: ObservableObject {
     @Published var weeklyEmissionsData: [EmissionData] = []
     @Published var emissionDifference: Double = 0.0 // Difference between today and yesterday
     @Published var isLessThanYesterday: Bool = false // Whether emissions are less than yesterday
+    
+    // Records for each category
+    @Published var fuelRecords: [FuelUsage] = []
+    @Published var electricityRecords: [ElectricityUsage] = []
+    @Published var lpgRecords: [LPGUsage] = []
+    @Published var foodWasteRecords: [FoodWaste] = []
 
     let calendar = Calendar.current
 
@@ -32,31 +31,31 @@ class StatisticsViewModel: ObservableObject {
         let today = calendar.startOfDay(for: date)
         let yesterday = calendar.date(byAdding: .day, value: -1, to: today) ?? Date()
 
-        // Today's emissions
-        let fuelDataToday = CoreDataManager.shared.fetchFuelUsage().filter {
+        // Fetch daily records for today
+        fuelRecords = CoreDataManager.shared.fetchFuelUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        fuelEmissions = fuelDataToday.reduce(0) { $0 + $1.co2Footprint }
+        fuelEmissions = fuelRecords.reduce(0) { $0 + $1.co2Footprint }
 
-        let electricityDataToday = CoreDataManager.shared.fetchElectricityUsage().filter {
+        electricityRecords = CoreDataManager.shared.fetchElectricityUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        electricityEmissions = electricityDataToday.reduce(0) { $0 + $1.co2Footprint }
+        electricityEmissions = electricityRecords.reduce(0) { $0 + $1.co2Footprint }
 
-        let lpgDataToday = CoreDataManager.shared.fetchLPGUsage().filter {
+        lpgRecords = CoreDataManager.shared.fetchLPGUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        lpgEmissions = lpgDataToday.reduce(0) { $0 + $1.co2Footprint }
+        lpgEmissions = lpgRecords.reduce(0) { $0 + $1.co2Footprint }
 
-        let foodWasteDataToday = CoreDataManager.shared.fetchFoodWaste().filter {
+        foodWasteRecords = CoreDataManager.shared.fetchFoodWaste().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: today)
         }
-        foodWasteEmissions = foodWasteDataToday.reduce(0) { $0 + $1.co2Footprint }
+        foodWasteEmissions = foodWasteRecords.reduce(0) { $0 + $1.co2Footprint }
 
-        // Calculate today's total emissions
+        // Calculate total emissions for today
         totalEmissions = fuelEmissions + electricityEmissions + lpgEmissions + foodWasteEmissions
 
-        // Yesterday's emissions
+        // Fetch yesterday's data and calculate the total emissions
         let fuelDataYesterday = CoreDataManager.shared.fetchFuelUsage().filter {
             calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
         }
@@ -82,7 +81,7 @@ class StatisticsViewModel: ObservableObject {
 
         // Calculate the difference between today and yesterday
         emissionDifference = totalEmissions - totalEmissionsYesterday
-        isLessThanYesterday = emissionDifference < 0
+        isLessThanYesterday = totalEmissions < totalEmissionsYesterday
 
         // Prepare chart data for the current week
         prepareWeeklyEmissionData(for: date)
@@ -90,7 +89,7 @@ class StatisticsViewModel: ObservableObject {
 
     // Function to prepare emission data for the current week (Monday to Sunday)
     private func prepareWeeklyEmissionData(for date: Date) {
-        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] // Days of the week
+        let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date))!
 
         weeklyEmissionsData.removeAll()
@@ -98,14 +97,14 @@ class StatisticsViewModel: ObservableObject {
         for i in 0..<7 {
             if let weekDay = calendar.date(byAdding: .day, value: i, to: startOfWeek) {
                 let isToday = calendar.isDate(weekDay, inSameDayAs: date)
-                
+
                 // Sum of emissions for that specific day
                 let dayEmissions = calculateDailyEmissions(for: weekDay)
-                
+
                 weeklyEmissionsData.append(EmissionData(
                     day: days[i],
                     co2Emission: dayEmissions,
-                    isToday: isToday // Highlight today's day
+                    isToday: isToday
                 ))
             }
         }
