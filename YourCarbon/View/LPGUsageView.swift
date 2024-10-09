@@ -46,3 +46,7 @@ struct LPGUsageView: View {
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
+
+#Preview {
+    LPGUsageView()
+}

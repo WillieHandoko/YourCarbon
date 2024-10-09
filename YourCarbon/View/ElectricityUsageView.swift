@@ -45,3 +45,7 @@ struct ElectricityUsageView: View {
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
+
+#Preview {
+    ElectricityUsageView()
+}

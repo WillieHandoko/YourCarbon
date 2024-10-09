@@ -42,3 +42,7 @@ struct TargetSettingView: View {
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
+
+#Preview {
+    TargetSettingView(viewModel: .init())
+}

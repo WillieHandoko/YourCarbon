@@ -57,3 +57,7 @@ struct FuelUsageView: View {
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
+
+#Preview {
+    FuelUsageView()
+}

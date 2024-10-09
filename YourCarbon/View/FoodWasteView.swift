@@ -44,3 +44,7 @@ struct FoodWasteView: View {
         .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
+
+#Preview {
+    FoodWasteView()
+}
