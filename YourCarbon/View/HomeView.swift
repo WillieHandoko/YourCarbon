@@ -10,32 +10,23 @@ import Charts
 
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
+    let category: [String] = ["Fuel Usage","LPG Usage","Electricity Usage","Food Waste"]
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // Username Display
-                //                if let username = viewModel.username {
-                //                    Text("Welcome, \(username)")
-                //                        .font(.largeTitle)
-                //                        .foregroundColor(.white)
-                //                } else {
-                //                    Text("Welcome!")
-                //                        .font(.largeTitle)
-                //                        .foregroundColor(.white)
-                //                }
                 
-                // Carbon Reduction Target
-                
-                LabeledContent("Hello, User") {
+                LabeledContent("Welcome to YourCarbon!") {
                     Button (action: {
                         viewModel.showTargetSetting = true
                     }, label: {
-                        Image(systemName: "info.circle")
-                            .font(.title3)
+                        Image(systemName: "gear.circle")
+                            .font(.largeTitle)
+                            .padding(.trailing,20)
                     })
                 }
                 .font(.title)
+                .fontWeight(.bold)
                 .padding(.horizontal, 25)
                 
                 if let target = viewModel.userTarget {
@@ -70,44 +61,79 @@ struct HomeView: View {
                     .foregroundColor(.white)
                     .padding(.top, 10)
                     
-                    HStack {
-                        NavigationLink(destination: LPGUsageView()) {
-                            Text("LPG Usage")
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity)
-                        }
-                        NavigationLink(destination: FuelUsageView()) {
-                            Text("Fuel Usage")
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity)
+                    
+                    Form{
+                        Section(header: Text("Count your emissions")){
+                            Picker("Category", selection: $viewModel.selectedCategory)
+                            {
+                                ForEach(category, id: \.self) {number in Text("\(number)")
+                                }
+                                .font(.footnote)
+                            }
+                            .font(.footnote)
+                            .fontWeight(.medium)
                         }
                     }
-                    HStack {
-                        NavigationLink(destination: ElectricityUsageView()) {
-                            Text("Electricity Usage")
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity)
+                    .frame(width: 365, height: 90)
+                    .padding(.horizontal, 38)
+                    .padding(.top,5)
+                    
+                    VStack{
+                        if (viewModel.selectedCategory == "Fuel Usage") {
+                            NavigationLink(destination: FuelUsageView()) {
+                                Text("Continue")
+                                    .foregroundStyle(Color.white)
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.gray.opacity(0.2))
+                                            .frame(width: 325, height: 40)
+                                    }
+                            }
+                            .frame(width: 325, height: 40)
+                            .padding(.horizontal, 38)
+                            .padding(.top, 5)
                         }
-                        NavigationLink(destination: FoodWasteView()) {
-                            Text("Food Waste")
-                                .fontWeight(.bold)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity)
+                        else if (viewModel.selectedCategory == "LPG Usage") {
+                            NavigationLink(destination: LPGUsageView()) {
+                                Text("Continue")
+                                    .foregroundStyle(Color.white)
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.gray.opacity(0.2))
+                                            .frame(width: 325, height: 40)
+                                    }
+                            }
+                            .frame(width: 325, height: 40)
+                            .padding(.horizontal, 38)
+                            .padding(.top, 5)
+                        }
+                        else if (viewModel.selectedCategory == "Electricity Usage") {
+                            NavigationLink(destination: ElectricityUsageView()) {
+                                Text("Continue")
+                                    .foregroundStyle(Color.white)
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.gray.opacity(0.2))
+                                            .frame(width: 325, height: 40)
+                                    }
+                            }
+                            .frame(width: 325, height: 40)
+                            .padding(.horizontal, 38)
+                            .padding(.top, 5)
+                        }
+                        else if (viewModel.selectedCategory == "Food Waste") {
+                            NavigationLink(destination: FoodWasteView()) {
+                                Text("Continue")
+                                    .foregroundStyle(Color.white)
+                                    .background{
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.gray.opacity(0.2))
+                                            .frame(width: 325, height: 40)
+                                    }
+                            }
+                            .frame(width: 325, height: 40)
+                            .padding(.horizontal, 38)
+                            .padding(.top, 5)
                         }
                     }
                 }

@@ -20,6 +20,7 @@ class HomeViewModel: ObservableObject {
     @Published var totalFootprint: Double = 0.0
     @Published var showTargetSetting = false
     @Published var todayEmissionData: [EmissionsData] = []
+    @Published var selectedCategory: String = "Fuel Usage"
 
     init() {
         fetchUserDetails()
