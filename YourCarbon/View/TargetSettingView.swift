@@ -14,7 +14,7 @@ struct TargetSettingView: View {
     var body: some View {
         VStack {
             Text("Set Carbon Reduction Target")
-                .font(.largeTitle)
+                .font(.title2)
                 .padding()
 
             TextField("Enter Target (kg CO₂)", text: $targetReduction)

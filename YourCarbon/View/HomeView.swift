@@ -45,12 +45,13 @@ struct HomeView: View {
                             x: .value("Category", data.category),
                             y: .value("Emissions", data.co2Emission)
                         )
+                        .cornerRadius(5)
                         .foregroundStyle(.yellow)
                     }
                     .chartYScale(domain: 0...(viewModel.totalFootprint + 10))
                     .frame(height: 300)
                     .background(Color.gray.opacity(0.2))
-                    .cornerRadius(10)
+                    .cornerRadius(5)
                     .padding()
                     
                     // Display today's total carbon emissions

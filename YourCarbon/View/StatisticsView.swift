@@ -64,7 +64,7 @@ struct StatisticsView: View {
                 .frame(height: 300)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
-                .padding()
+                .padding(.horizontal)
 
                 // Total Emissions
                 Text("\(viewModel.totalEmissions, specifier: "%.2f") kgCO₂e")
@@ -81,46 +81,46 @@ struct StatisticsView: View {
                 }
 
                 // Emissions by Category (Clickable List)
-                VStack(spacing: 20) {
-                    NavigationLink(destination: EmissionDetailView(category: "Fuel", records: viewModel.fuelRecords)) {
-                        HStack {
-                            Text("Fuel Emissions")
-                            Spacer()
-                            Text("\(viewModel.fuelEmissions, specifier: "%.2f") kg CO₂")
-                                .foregroundColor(.yellow)
+                VStack{
+                    List{
+                        NavigationLink(destination: EmissionDetailView(category: "Fuel", records: viewModel.fuelRecords)
+                        ) {
+                            HStack {
+                                Text("Fuel Emissions")
+                                Spacer()
+                                Text("\(viewModel.fuelEmissions, specifier: "%.2f") kg CO₂")
+                                    .foregroundColor(.yellow)
+                            }
                         }
-                    }
-                    
-                    NavigationLink(destination: EmissionDetailView(category: "Electricity", records: viewModel.electricityRecords)) {
-                        HStack {
-                            Text("Electricity Usage")
-                            Spacer()
-                            Text("\(viewModel.electricityEmissions, specifier: "%.2f") kg CO₂")
-                                .foregroundColor(.yellow)
+                        
+                        NavigationLink(destination: EmissionDetailView(category: "Electricity", records: viewModel.electricityRecords)) {
+                            HStack {
+                                Text("Electricity Usage")
+                                Spacer()
+                                Text("\(viewModel.electricityEmissions, specifier: "%.2f") kg CO₂")
+                                    .foregroundColor(.yellow)
+                            }
                         }
-                    }
-
-                    NavigationLink(destination: EmissionDetailView(category: "LPG", records: viewModel.lpgRecords)) {
-                        HStack {
-                            Text("LPG Usage")
-                            Spacer()
-                            Text("\(viewModel.lpgEmissions, specifier: "%.2f") kg CO₂")
-                                .foregroundColor(.yellow)
+                        
+                        NavigationLink(destination: EmissionDetailView(category: "LPG", records: viewModel.lpgRecords)) {
+                            HStack {
+                                Text("LPG Usage")
+                                Spacer()
+                                Text("\(viewModel.lpgEmissions, specifier: "%.2f") kg CO₂")
+                                    .foregroundColor(.yellow)
+                            }
                         }
-                    }
-
-                    NavigationLink(destination: EmissionDetailView(category: "Food Waste", records: viewModel.foodWasteRecords)) {
-                        HStack {
-                            Text("Food Waste")
-                            Spacer()
-                            Text("\(viewModel.foodWasteEmissions, specifier: "%.2f") kg CO₂")
-                                .foregroundColor(.yellow)
+                        
+                        NavigationLink(destination: EmissionDetailView(category: "Food Waste", records: viewModel.foodWasteRecords)) {
+                            HStack {
+                                Text("Food Waste")
+                                Spacer()
+                                Text("\(viewModel.foodWasteEmissions, specifier: "%.2f") kg CO₂")
+                                    .foregroundColor(.yellow)
+                            }
                         }
                     }
                 }
-                .padding(.horizontal)
-
-                Spacer()
             }
             .onAppear {
                 viewModel.fetchDailyData(for: selectedDate) // Fetch data for the current day on view load
