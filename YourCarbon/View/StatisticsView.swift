@@ -60,6 +60,7 @@ struct StatisticsView: View {
                     )
                     .foregroundStyle(data.isToday ? .green : .yellow) // Highlight current day in green
                 }
+                .chartYScale(domain: 0...(viewModel.totalEmissions + 10))
                 .frame(height: 300)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)

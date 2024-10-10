@@ -47,7 +47,8 @@ struct HomeView: View {
                         )
                         .foregroundStyle(.yellow)
                     }
-                    .frame(height: 250)
+                    .chartYScale(domain: 0...(viewModel.totalFootprint + 10))
+                    .frame(height: 300)
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
                     .padding()
