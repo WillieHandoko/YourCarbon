@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct StatisticsView: View {
+    @State private var chartScale: Int = 100
     @StateObject private var viewModel = StatisticsViewModel()
     @State private var selectedDate = Date() // State for the currently selected date
 
@@ -60,15 +61,99 @@ struct StatisticsView: View {
                     )
                     .foregroundStyle(data.isToday ? .green : .yellow) // Highlight current day in green
                 }
-                .chartYScale(domain: 0...(viewModel.totalEmissions + 10))
-                .frame(height: 300)
+                .chartYScale(domain: 0...(chartScale))
+                .frame(height: 250)
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
                 .padding(.horizontal)
+                
+                HStack(alignment:.center,spacing: 5){
+                    Spacer()
+                    Button {
+                        self.chartScale = 50
+                    } label: {
+                        Text("50")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 100
+                    } label: {
+                        Text("100")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                            
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 500
+                    } label: {
+                        Text("500")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 1500
+                    } label: {
+                        Text("1000")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 2000
+                    } label: {
+                        Text("2000")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    Spacer()
+                }
+                .background
+                {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(Color.gray.opacity(0.3))
+                        .frame(width:340,height:50)
+                        
+                }
+                .padding(.top,5)
 
                 // Total Emissions
                 Text("\(viewModel.totalEmissions, specifier: "%.2f") kgCO₂e")
-                    .font(.largeTitle)
+                    .font(.title)
+                    .fontWeight(.bold)
                     .padding()
 
                 // Yesterday Comparison
@@ -120,12 +205,13 @@ struct StatisticsView: View {
                             }
                         }
                     }
+                    .scrollDisabled(true)
                 }
             }
+            .padding()
             .onAppear {
                 viewModel.fetchDailyData(for: selectedDate) // Fetch data for the current day on view load
             }
-            .padding()
             .background(Color.black.edgesIgnoringSafeArea(.all))
         }
     }
