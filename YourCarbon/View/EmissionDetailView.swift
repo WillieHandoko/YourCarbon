@@ -14,104 +14,161 @@ struct EmissionDetailView: View {
     var body: some View {
         VStack {
             Text("\(category) Emissions Details")
-                .font(.largeTitle)
+                .font(.title)
                 .padding()
             
             if records.isEmpty {
-                //                Text("No records found for \(category)")
-                //                    .foregroundColor(.gray)
-                //                    .padding()
-                
-                List{
-                    //First List
-                    HStack(spacing: 30) {
-                        VStack(alignment:.center, spacing: 10){
-                            Image(systemName: "calendar")
-                                .font(.system(size: 30))
-                            Image(systemName: "car")
-                                .font(.system(size: 30))
-                            Image(systemName: "fuelpump")
-                                .font(.system(size: 30))
-                            Image(systemName: "leaf")
-                                .font(.system(size: 30))
-                           
-                        }
-                        VStack(alignment:.center, spacing: 22){
-                            HStack{
-                                Text("10 Oct 2024")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("Sedan")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("Gasoline")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("20.0 kg")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                        }
-                    }
-                    
-                    //Second List
-                    
-                    HStack(spacing: 30) {
-                        VStack(alignment:.center, spacing: 10){
-                            Image(systemName: "calendar")
-                                .font(.system(size: 30))
-                            Image(systemName: "car")
-                                .font(.system(size: 30))
-                            Image(systemName: "fuelpump")
-                                .font(.system(size: 30))
-                            Image(systemName: "leaf")
-                                .font(.system(size: 30))
-                           
-                        }
-                        VStack(alignment:.center, spacing: 22){
-                            HStack{
-                                Text("10 Oct 2024")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("Sedan")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("Gasoline")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                            HStack{
-                                Text("20.0 kg")
-                                    .fontWeight(.bold)
-                                Spacer()
-                            }
-                        }
-                    }
-                    
-                    .padding(.vertical)
-                }
-                
+                Text("No records found for \(category)")
+                    .foregroundColor(.gray)
+                    .padding()
                 
             } else {
                 List(records.indices, id: \.self) { index in
                     if let fuelRecord = records[index] as? FuelUsage {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Date: \(fuelRecord.date ?? Date(), formatter: dateFormatter)")
-                                .font(.headline)
-                            Text("CO₂ Footprint: \(fuelRecord.co2Footprint, specifier: "%.2f") kg")
-                                .font(.subheadline)
-                            Text("Vehicle Type: \(fuelRecord.vehicleType ?? "Unknown")")
-                            Text("Fuel Type: \(fuelRecord.fuelType ?? "Unknown")")
+                        
+                        HStack(spacing: 30) {
+                            VStack(alignment:.center, spacing: 10){
+                                Image(systemName: "calendar")
+                                    .font(.system(size: 30))
+                                Image(systemName: "car")
+                                    .font(.system(size: 30))
+                                Image(systemName: "fuelpump")
+                                    .font(.system(size: 30))
+                                Image(systemName: "leaf")
+                                    .font(.system(size: 30))
+                            }
+                            
+                            VStack(alignment: .center, spacing: 22) {
+                                
+                                HStack{
+                                    Text("\(fuelRecord.date ?? Date(), formatter: dateFormatter)")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(fuelRecord.vehicleType ?? "Unknown")")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(fuelRecord.fuelType ?? "Unknown")")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(fuelRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
+                        }
+                        .padding(.vertical)
+                    }
+                    else if let electricityRecord = records[index] as? ElectricityUsage {
+                        
+                        HStack(spacing: 30) {
+                            VStack(alignment:.center, spacing: 10){
+                                Image(systemName: "calendar")
+                                    .font(.system(size: 30))
+                                Image(systemName: "bolt")
+                                    .font(.system(size: 30))
+                                Image(systemName: "leaf")
+                                    .font(.system(size: 30))
+                            }
+                            
+                            VStack(alignment: .center, spacing: 22) {
+                                
+                                HStack{
+                                    Text("\(electricityRecord.date ?? Date(), formatter: dateFormatter)")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(electricityRecord.electricityUsage, specifier: "%.2f") kWh")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(electricityRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
+                        }
+                        .padding(.vertical)
+                    }
+                    else if let lpgRecord = records[index] as? LPGUsage {
+                        
+                        HStack(spacing: 30) {
+                            VStack(alignment:.center, spacing: 10){
+                                Image(systemName: "calendar")
+                                    .font(.system(size: 30))
+                                Image(systemName: "macpro.gen2")
+                                    .font(.system(size: 30))
+                                Image(systemName: "leaf")
+                                    .font(.system(size: 30))
+                            }
+                            
+                            VStack(alignment: .center, spacing: 22) {
+                                
+                                HStack{
+                                    Text("\(lpgRecord.date ?? Date(), formatter: dateFormatter)")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(lpgRecord.lpgAmount, specifier: "%.2f") kg")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(lpgRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
+                        }
+                        .padding(.vertical)
+                    }
+                    else if let foodwasteRecord = records[index] as? FoodWaste {
+                        
+                        HStack(spacing: 30) {
+                            VStack(alignment:.center, spacing: 10){
+                                Image(systemName: "calendar")
+                                    .font(.system(size: 30))
+                                Image(systemName: "fork.knife.circle")
+                                    .font(.system(size: 30))
+                                Image(systemName: "leaf")
+                                    .font(.system(size: 30))
+                            }
+                            
+                            VStack(alignment: .center, spacing: 22) {
+                                
+                                HStack{
+                                    Text("\(foodwasteRecord.date ?? Date(), formatter: dateFormatter)")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(foodwasteRecord.foodType ?? "Unknown")")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                                
+                                HStack{
+                                    Text("\(foodwasteRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                        .fontWeight(.bold)
+                                    Spacer()
+                                }
+                            }
                         }
                         .padding(.vertical)
                     }
