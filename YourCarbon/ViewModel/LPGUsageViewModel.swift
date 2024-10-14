@@ -21,7 +21,7 @@ class LPGUsageViewModel: ObservableObject {
         }
 
         // LPG produces approximately 3 kg of CO₂ per kg of LPG used
-        let co2Footprint = lpgAmount * 3.0
+        let co2Footprint = lpgAmount * 2.9925
 
         // Save to Core Data using CoreDataManager
         CoreDataManager.shared.saveLPGUsage(lpgAmount: lpgAmount, usageTime: usageTime, footprint: co2Footprint)
