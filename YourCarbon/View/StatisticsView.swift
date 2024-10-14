@@ -151,17 +151,17 @@ struct StatisticsView: View {
                 .padding(.top,5)
 
                 // Total Emissions
-                Text("\(viewModel.totalEmissions, specifier: "%.2f") kgCO₂e")
+                Text("\(viewModel.totalEmissions, specifier: "%.3f") kgCO₂e")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding()
 
                 // Yesterday Comparison
                 if viewModel.isLessThanYesterday {
-                    Text("\(viewModel.emissionDifference, specifier: "%.2f") kg less than yesterday")
+                    Text("\(viewModel.emissionDifference, specifier: "%.3f") kg less than yesterday")
                         .foregroundColor(.green)
                 } else {
-                    Text("\(viewModel.emissionDifference, specifier: "%.2f") kg more than yesterday")
+                    Text("\(viewModel.emissionDifference, specifier: "%.3f") kg more than yesterday")
                         .foregroundColor(.orange)
                 }
 
@@ -173,7 +173,7 @@ struct StatisticsView: View {
                             HStack {
                                 Text("Fuel Emissions")
                                 Spacer()
-                                Text("\(viewModel.fuelEmissions, specifier: "%.2f") kg CO₂")
+                                Text("\(viewModel.fuelEmissions, specifier: "%.3f") kg CO₂")
                                     .foregroundColor(.yellow)
                             }
                         }
@@ -182,7 +182,7 @@ struct StatisticsView: View {
                             HStack {
                                 Text("Electricity Usage")
                                 Spacer()
-                                Text("\(viewModel.electricityEmissions, specifier: "%.2f") kg CO₂")
+                                Text("\(viewModel.electricityEmissions, specifier: "%.3f") kg CO₂")
                                     .foregroundColor(.yellow)
                             }
                         }
@@ -191,7 +191,7 @@ struct StatisticsView: View {
                             HStack {
                                 Text("LPG Usage")
                                 Spacer()
-                                Text("\(viewModel.lpgEmissions, specifier: "%.2f") kg CO₂")
+                                Text("\(viewModel.lpgEmissions, specifier: "%.3f") kg CO₂")
                                     .foregroundColor(.yellow)
                             }
                         }
@@ -200,7 +200,7 @@ struct StatisticsView: View {
                             HStack {
                                 Text("Food Waste")
                                 Spacer()
-                                Text("\(viewModel.foodWasteEmissions, specifier: "%.2f") kg CO₂")
+                                Text("\(viewModel.foodWasteEmissions, specifier: "%.3f") kg CO₂")
                                     .foregroundColor(.yellow)
                             }
                         }

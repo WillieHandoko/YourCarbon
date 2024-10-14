@@ -59,7 +59,7 @@ struct EmissionDetailView: View {
                                 }
                                 
                                 HStack{
-                                    Text("\(fuelRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                    Text("\(fuelRecord.co2Footprint, specifier: "%.3f") kg CO₂")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -88,13 +88,13 @@ struct EmissionDetailView: View {
                                 }
                                 
                                 HStack{
-                                    Text("\(electricityRecord.electricityUsage, specifier: "%.2f") kWh")
+                                    Text("\(electricityRecord.electricityUsage, specifier: "%.3f") kWh")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
                                 
                                 HStack{
-                                    Text("\(electricityRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                    Text("\(electricityRecord.co2Footprint, specifier: "%.3f") kg CO₂")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -123,13 +123,13 @@ struct EmissionDetailView: View {
                                 }
                                 
                                 HStack{
-                                    Text("\(lpgRecord.lpgAmount, specifier: "%.2f") kg")
+                                    Text("\(lpgRecord.lpgAmount, specifier: "%.3f") kg")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
                                 
                                 HStack{
-                                    Text("\(lpgRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                    Text("\(lpgRecord.co2Footprint, specifier: "%.3f") kg CO₂")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -164,7 +164,7 @@ struct EmissionDetailView: View {
                                 }
                                 
                                 HStack{
-                                    Text("\(foodwasteRecord.co2Footprint, specifier: "%.2f") kg CO₂")
+                                    Text("\(foodwasteRecord.co2Footprint, specifier: "%.3f") kg CO₂")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }

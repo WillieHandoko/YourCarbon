@@ -13,7 +13,7 @@ struct HomeView: View {
     let category: [String] = ["Fuel Usage","LPG Usage","Electricity Usage","Food Waste"]
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
                 
                 LabeledContent("Welcome to YourCarbon!") {
@@ -57,7 +57,7 @@ struct HomeView: View {
                     // Display today's total carbon emissions
                     VStack{
                         Text("Total Carbon Emissions")
-                        Text("Today: \(viewModel.totalFootprint, specifier: "%.2f") kg CO₂")
+                        Text("Today: \(viewModel.totalFootprint, specifier: "%.3f") kg CO₂")
                     }
                     .font(.title3)
                     .foregroundColor(.white)
