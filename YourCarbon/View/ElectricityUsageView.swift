@@ -16,7 +16,7 @@ struct ElectricityUsageView: View {
                 .font(.largeTitle)
                 .padding()
 
-            TextField("Electricity Usage (kWh)", text: $viewModel.electricityUsage)
+            TextField("Electricity Usage (W)", text: $viewModel.electricityUsage)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)

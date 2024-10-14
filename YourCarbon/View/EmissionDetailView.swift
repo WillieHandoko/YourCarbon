@@ -88,7 +88,7 @@ struct EmissionDetailView: View {
                                 }
                                 
                                 HStack{
-                                    Text("\(electricityRecord.electricityUsage, specifier: "%.3f") kWh")
+                                    Text("\(electricityRecord.electricityUsage, specifier: "%.1f") kWh")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
