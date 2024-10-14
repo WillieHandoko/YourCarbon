@@ -41,7 +41,7 @@ struct EmissionDetailView: View {
                             VStack(alignment: .center, spacing: 22) {
                                 
                                 HStack{
-                                    Text("\(fuelRecord.date ?? Date(), formatter: dateFormatter)")
+                                    Text("\(fuelRecord.currentDate ?? Date(), formatter: dateFormatter)")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -82,7 +82,7 @@ struct EmissionDetailView: View {
                             VStack(alignment: .center, spacing: 22) {
                                 
                                 HStack{
-                                    Text("\(electricityRecord.date ?? Date(), formatter: dateFormatter)")
+                                    Text("\(electricityRecord.currentDate ?? Date(), formatter: dateFormatter)")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -117,7 +117,7 @@ struct EmissionDetailView: View {
                             VStack(alignment: .center, spacing: 22) {
                                 
                                 HStack{
-                                    Text("\(lpgRecord.date ?? Date(), formatter: dateFormatter)")
+                                    Text("\(lpgRecord.currentDate ?? Date(), formatter: dateFormatter)")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
@@ -133,6 +133,7 @@ struct EmissionDetailView: View {
                                         .fontWeight(.bold)
                                     Spacer()
                                 }
+                                
                             }
                         }
                         .padding(.vertical)
@@ -152,7 +153,7 @@ struct EmissionDetailView: View {
                             VStack(alignment: .center, spacing: 22) {
                                 
                                 HStack{
-                                    Text("\(foodwasteRecord.date ?? Date(), formatter: dateFormatter)")
+                                    Text("\(foodwasteRecord.currentDate ?? Date(), formatter: dateFormatter)")
                                         .fontWeight(.bold)
                                     Spacer()
                                 }

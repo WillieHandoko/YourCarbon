@@ -64,7 +64,7 @@ class CoreDataManager {
         fuelUsage.fuelConsumption = fuelConsumption
         fuelUsage.vehicleRange = vehicleRange
         fuelUsage.co2Footprint = footprint
-        fuelUsage.date = Date()
+        fuelUsage.currentDate = Date()
         saveContext()
     }
 
@@ -80,12 +80,15 @@ class CoreDataManager {
 
     // MARK: - LPGUsage Management
     func saveLPGUsage(lpgAmount: Double, usageTime: Int, footprint: Double) {
-        let lpgUsage = LPGUsage(context: context)
-        lpgUsage.lpgAmount = lpgAmount
-        lpgUsage.usageTime = Int16(usageTime)
-        lpgUsage.co2Footprint = footprint
-        lpgUsage.date = Date()
-        saveContext()
+        let today = Date()
+        for i in 0..<usageTime {
+            let lpgUsage = LPGUsage(context: context)
+            lpgUsage.lpgAmount = lpgAmount
+            lpgUsage.usageTime = Int16(usageTime)
+            lpgUsage.co2Footprint = footprint / Double(usageTime)
+            lpgUsage.currentDate = Calendar.current.date(byAdding: .day, value: i, to: today)!
+            saveContext()
+        }
     }
 
     func fetchLPGUsage() -> [LPGUsage] {
@@ -104,7 +107,7 @@ class CoreDataManager {
             electricityUsage.electricityUsage = electricityAmount // Rename the parameter here
             electricityUsage.usageTime = Int16(usageTime)
             electricityUsage.co2Footprint = footprint
-            electricityUsage.date = Date()
+            electricityUsage.currentDate = Date()
             saveContext()
         }
 
@@ -124,7 +127,7 @@ class CoreDataManager {
         foodWaste.foodType = foodType
         foodWaste.weight = weight
         foodWaste.co2Footprint = footprint
-        foodWaste.date = Date()
+        foodWaste.currentDate = Date()
         saveContext()
     }
 
@@ -134,6 +137,25 @@ class CoreDataManager {
             return try context.fetch(request)
         } catch {
             print("Failed to fetch food waste: \(error)")
+            return []
+        }
+    }
+    
+    // MARK: - Save Monthly
+    
+    func saveMonthly(total:Double) {
+        let monthly = MonthlyData(context: context)
+        monthly.dateSaved = Date()
+        monthly.co2OfMonth = total
+        saveContext()
+    }
+    
+    func fetchMonthly() -> [MonthlyData] {
+        let request: NSFetchRequest<MonthlyData> = MonthlyData.fetchRequest()
+        do {
+            return try context.fetch(request)
+        } catch {
+            print("Failed to fetch monthly data: \(error)")
             return []
         }
     }

@@ -22,18 +22,23 @@ struct HomeView: View {
                     }, label: {
                         Image(systemName: "gear.circle")
                             .font(.largeTitle)
-                            .padding(.trailing,20)
+                            .padding(.trailing,5)
                     })
                 }
-                .font(.title)
+                .font(.title3)
                 .fontWeight(.bold)
                 .padding(.horizontal, 25)
                 
                 if let target = viewModel.userTarget {
-                    Text("Your target: Reduce \(target, specifier: "%.1f") kg CO₂")
-                        .font(.headline)
+                    Text("Monthly emmisions limit : \(target, specifier: "%.1f") kg CO₂")
+                        .font(.callout)
                         .foregroundColor(viewModel.isOverTarget ? .orange : .green)
                 }
+                
+                ProgressView(value: ((viewModel.totalFootprints/(viewModel.userTarget ?? 0))*100)/100, label: {}, currentValueLabel: { Text("\((viewModel.totalFootprints/(viewModel.userTarget ?? 0))*100, specifier: "%.0f")%") })
+                    .progressViewStyle(BarProgressStyle(height: 25.0))
+                    .padding(.horizontal,30)
+                
                 
                 
                 // Navigation Links for calculating carbon footprint
@@ -57,7 +62,7 @@ struct HomeView: View {
                     // Display today's total carbon emissions
                     VStack{
                         Text("Total Carbon Emissions")
-                        Text("Today: \(viewModel.totalFootprint, specifier: "%.3f") kg CO₂")
+                        Text("This Month : \(viewModel.totalFootprints, specifier: "%.3f") kg CO₂")
                     }
                     .font(.title3)
                     .foregroundColor(.white)
@@ -150,7 +155,51 @@ struct HomeView: View {
             }
             .onAppear {
                 viewModel.calculateTotalFootprint()
-                viewModel.fetchTodayEmissions() // Fetch today's emissions for chart
+                viewModel.fetchTodayEmissions()
+                viewModel.fetchEmissions()// Fetch today's emissions for chart
+            }
+        }
+    }
+}
+
+struct BarProgressStyle: ProgressViewStyle {
+
+    var color: Color = .gray.opacity(0.5)
+    var height: Double = 5.0
+    var labelFontStyle: Font = .body
+
+    func makeBody(configuration: Configuration) -> some View {
+
+        let progress = configuration.fractionCompleted ?? 0.0
+
+        GeometryReader { geometry in
+
+            HStack{
+                VStack(alignment: .leading) {
+                    
+                    configuration.label
+                        .font(labelFontStyle)
+                    
+                    RoundedRectangle(cornerRadius: 5.0)
+                        .fill(Color(uiColor: .systemGray5))
+                        .frame(height: height)
+                        .frame(width: geometry.size.width * 0.8)
+                        .overlay(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 5.0)
+                                .fill(color)
+                                .frame(width: geometry.size.width * 0.8 * progress)
+                            
+                            
+                        }
+                    
+                }
+                if let currentValueLabel = configuration.currentValueLabel {
+                    
+                    currentValueLabel
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding(.leading,10)
+                }
             }
         }
     }

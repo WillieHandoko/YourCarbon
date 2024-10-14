@@ -17,6 +17,7 @@ struct EmissionsData: Identifiable {
 class HomeViewModel: ObservableObject {
     @Published var username: String?
     @Published var userTarget: Double?
+    @Published var totalFootprints: Double = 0.0
     @Published var totalFootprint: Double = 0.0
     @Published var showTargetSetting = false
     @Published var todayEmissionData: [EmissionsData] = []
@@ -60,22 +61,22 @@ class HomeViewModel: ObservableObject {
         
         // Fetch daily data for each category
         let fuelData = CoreDataManager.shared.fetchFuelUsage().filter {
-            Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
+            Calendar.current.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         let fuelEmissions = fuelData.reduce(0) { $0 + $1.co2Footprint }
         
         let electricityData = CoreDataManager.shared.fetchElectricityUsage().filter {
-            Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
+            Calendar.current.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         let electricityEmissions = electricityData.reduce(0) { $0 + $1.co2Footprint }
 
         let lpgData = CoreDataManager.shared.fetchLPGUsage().filter {
-            Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
+            Calendar.current.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         let lpgEmissions = lpgData.reduce(0) { $0 + $1.co2Footprint }
 
         let foodWasteData = CoreDataManager.shared.fetchFoodWaste().filter {
-            Calendar.current.isDate($0.date ?? Date(), inSameDayAs: today)
+            Calendar.current.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         let foodWasteEmissions = foodWasteData.reduce(0) { $0 + $1.co2Footprint }
 
@@ -90,10 +91,51 @@ class HomeViewModel: ObservableObject {
             EmissionsData(category: "Food Waste", co2Emission: foodWasteEmissions)
         ]
     }
+    
+    
+    func fetchEmissions() {
+        // Get the current month start and end dates
+        let calendar = Calendar.current
+        let currentDate = Date()
+
+        // Get the first and last date of the current month
+        let startOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: currentDate))!
+        let endOfMonth = calendar.date(byAdding: DateComponents(month: 1, day: 0), to: startOfMonth)!
+        
+        // Fetch daily data for each category
+        let fuelData = CoreDataManager.shared.fetchFuelUsage().filter { data in
+            return data.currentDate ?? Date() >= startOfMonth && data.currentDate ?? Date() <= endOfMonth
+        }
+        
+        
+        let fuelEmissions = fuelData.reduce(0) { $0 + $1.co2Footprint }
+        
+        let electricityData = CoreDataManager.shared.fetchElectricityUsage().filter { data in
+            return data.currentDate ?? Date() >= startOfMonth && data.currentDate ?? Date() <= endOfMonth
+        }
+        
+        let electricityEmissions = electricityData.reduce(0) { $0 + $1.co2Footprint }
+
+        let lpgData = CoreDataManager.shared.fetchLPGUsage().filter { data in
+            return data.currentDate ?? Date() >= startOfMonth && data.currentDate ?? Date() <= endOfMonth
+        }
+        
+        let lpgEmissions = lpgData.reduce(0) { $0 + $1.co2Footprint }
+
+        let foodWasteData = CoreDataManager.shared.fetchFoodWaste().filter { data in
+            return data.currentDate ?? Date() >= startOfMonth && data.currentDate ?? Date() <= endOfMonth
+        }
+        
+        let foodWasteEmissions = foodWasteData.reduce(0) { $0 + $1.co2Footprint }
+
+        // Calculate today's total footprint
+        totalFootprints = fuelEmissions + electricityEmissions + lpgEmissions + foodWasteEmissions
+        
+    }
 
     var isOverTarget: Bool {
         if let target = userTarget {
-            return totalFootprint > target
+            return totalFootprints > target
         }
         return false
     }

@@ -15,7 +15,7 @@ class ElectricityUsageViewModel: ObservableObject {
         guard let electricityUsage = Double(electricityUsage),
               let usageTime = Int(usageTime) else { return }
 
-        let co2Footprint = electricityUsage * 0.475 // Approx CO2 per kWh
+        let co2Footprint = electricityUsage * 0.7771589 // Approx CO2 per kWh
         CoreDataManager.shared.saveElectricityUsage(electricityAmount: electricityUsage, usageTime: usageTime, footprint: co2Footprint)
     }
 }

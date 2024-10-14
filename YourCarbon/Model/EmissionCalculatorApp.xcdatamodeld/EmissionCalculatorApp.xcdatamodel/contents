@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A335" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="24A348" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="ElectricityUsage" representedClassName="ElectricityUsage" syncable="YES" codeGenerationType="class">
         <attribute name="co2Footprint" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="electricityUsage" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="usageTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
     <entity name="FoodWaste" representedClassName="FoodWaste" syncable="YES" codeGenerationType="class">
         <attribute name="co2Footprint" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="foodType" optional="YES" attributeType="String"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="FuelUsage" representedClassName="FuelUsage" syncable="YES" codeGenerationType="class">
         <attribute name="co2Footprint" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="fuelConsumption" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="fuelType" optional="YES" attributeType="String"/>
         <attribute name="vehicleRange" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -22,9 +22,13 @@
     </entity>
     <entity name="LPGUsage" representedClassName="LPGUsage" syncable="YES" codeGenerationType="class">
         <attribute name="co2Footprint" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="lpgAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="usageTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MonthlyData" representedClassName="MonthlyData" syncable="YES" codeGenerationType="class">
+        <attribute name="co2OfMonth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateSaved" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="username" optional="YES" attributeType="String"/>

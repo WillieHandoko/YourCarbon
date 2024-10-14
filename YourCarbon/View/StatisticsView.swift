@@ -9,7 +9,7 @@ import SwiftUI
 import Charts
 
 struct StatisticsView: View {
-    @State private var chartScale: Int = 100
+    @State private var chartScale: Int = 1000
     @StateObject private var viewModel = StatisticsViewModel()
     @State private var selectedDate = Date() // State for the currently selected date
 
@@ -70,50 +70,7 @@ struct StatisticsView: View {
                 HStack(alignment:.center,spacing: 5){
                     Spacer()
                     Button {
-                        self.chartScale = 50
-                    } label: {
-                        Text("50")
-                            .foregroundStyle(Color.yellow)
-                            .background
-                        {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 60,height: 35)
-                        }
-                    }
-                    .frame(width: 60,height: 35)
-                    
-                    Button {
-                        self.chartScale = 100
-                    } label: {
-                        Text("100")
-                            .foregroundStyle(Color.yellow)
-                            .background
-                        {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 60,height: 35)
-                            
-                        }
-                    }
-                    .frame(width: 60,height: 35)
-                    
-                    Button {
-                        self.chartScale = 500
-                    } label: {
-                        Text("500")
-                            .foregroundStyle(Color.yellow)
-                            .background
-                        {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: 60,height: 35)
-                        }
-                    }
-                    .frame(width: 60,height: 35)
-                    
-                    Button {
-                        self.chartScale = 1500
+                        self.chartScale = 1000
                     } label: {
                         Text("1000")
                             .foregroundStyle(Color.yellow)
@@ -127,9 +84,52 @@ struct StatisticsView: View {
                     .frame(width: 60,height: 35)
                     
                     Button {
-                        self.chartScale = 2000
+                        self.chartScale = 2500
                     } label: {
-                        Text("2000")
+                        Text("2500")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                            
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 5000
+                    } label: {
+                        Text("5000")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 10000
+                    } label: {
+                        Text("10000")
+                            .foregroundStyle(Color.yellow)
+                            .background
+                        {
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(width: 60,height: 35)
+                        }
+                    }
+                    .frame(width: 60,height: 35)
+                    
+                    Button {
+                        self.chartScale = 15000
+                    } label: {
+                        Text("15000")
                             .foregroundStyle(Color.yellow)
                             .background
                         {

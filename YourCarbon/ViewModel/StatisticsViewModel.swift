@@ -33,22 +33,22 @@ class StatisticsViewModel: ObservableObject {
 
         // Fetch daily records for today
         fuelRecords = CoreDataManager.shared.fetchFuelUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: today)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         fuelEmissions = fuelRecords.reduce(0) { $0 + $1.co2Footprint }
 
         electricityRecords = CoreDataManager.shared.fetchElectricityUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: today)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         electricityEmissions = electricityRecords.reduce(0) { $0 + $1.co2Footprint }
 
         lpgRecords = CoreDataManager.shared.fetchLPGUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: today)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         lpgEmissions = lpgRecords.reduce(0) { $0 + $1.co2Footprint }
 
         foodWasteRecords = CoreDataManager.shared.fetchFoodWaste().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: today)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: today)
         }
         foodWasteEmissions = foodWasteRecords.reduce(0) { $0 + $1.co2Footprint }
 
@@ -57,22 +57,22 @@ class StatisticsViewModel: ObservableObject {
 
         // Fetch yesterday's data and calculate the total emissions
         let fuelDataYesterday = CoreDataManager.shared.fetchFuelUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: yesterday)
         }
         let fuelEmissionsYesterday = fuelDataYesterday.reduce(0) { $0 + $1.co2Footprint }
 
         let electricityDataYesterday = CoreDataManager.shared.fetchElectricityUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: yesterday)
         }
         let electricityEmissionsYesterday = electricityDataYesterday.reduce(0) { $0 + $1.co2Footprint }
 
         let lpgDataYesterday = CoreDataManager.shared.fetchLPGUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: yesterday)
         }
         let lpgEmissionsYesterday = lpgDataYesterday.reduce(0) { $0 + $1.co2Footprint }
 
         let foodWasteDataYesterday = CoreDataManager.shared.fetchFoodWaste().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: yesterday)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: yesterday)
         }
         let foodWasteEmissionsYesterday = foodWasteDataYesterday.reduce(0) { $0 + $1.co2Footprint }
 
@@ -113,22 +113,22 @@ class StatisticsViewModel: ObservableObject {
     // Helper function to calculate emissions for a given day
     private func calculateDailyEmissions(for date: Date) -> Double {
         let fuelData = CoreDataManager.shared.fetchFuelUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: date)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: date)
         }
         let fuelEmission = fuelData.reduce(0) { $0 + $1.co2Footprint }
 
         let electricityData = CoreDataManager.shared.fetchElectricityUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: date)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: date)
         }
         let electricityEmission = electricityData.reduce(0) { $0 + $1.co2Footprint }
 
         let lpgData = CoreDataManager.shared.fetchLPGUsage().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: date)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: date)
         }
         let lpgEmission = lpgData.reduce(0) { $0 + $1.co2Footprint }
 
         let foodWasteData = CoreDataManager.shared.fetchFoodWaste().filter {
-            calendar.isDate($0.date ?? Date(), inSameDayAs: date)
+            calendar.isDate($0.currentDate ?? Date(), inSameDayAs: date)
         }
         let foodWasteEmission = foodWasteData.reduce(0) { $0 + $1.co2Footprint }
 
