@@ -196,9 +196,9 @@ struct StatisticsView: View {
                             }
                         }
                         
-                        NavigationLink(destination: EmissionDetailView(category: "Food Waste", records: viewModel.foodWasteRecords)) {
+                        NavigationLink(destination: EmissionDetailView(category: "Plastic Waste", records: viewModel.foodWasteRecords)) {
                             HStack {
-                                Text("Food Waste")
+                                Text("Plastic Waste")
                                 Spacer()
                                 Text("\(viewModel.foodWasteEmissions, specifier: "%.3f") kg CO₂")
                                     .foregroundColor(.yellow)

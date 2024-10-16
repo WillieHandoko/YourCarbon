@@ -88,7 +88,7 @@ class HomeViewModel: ObservableObject {
             EmissionsData(category: "Fuel", co2Emission: fuelEmissions),
             EmissionsData(category: "Electricity", co2Emission: electricityEmissions),
             EmissionsData(category: "LPG", co2Emission: lpgEmissions),
-            EmissionsData(category: "Food Waste", co2Emission: foodWasteEmissions)
+            EmissionsData(category: "Plastic", co2Emission: foodWasteEmissions)
         ]
     }
     

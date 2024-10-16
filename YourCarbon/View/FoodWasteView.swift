@@ -12,11 +12,12 @@ struct FoodWasteView: View {
 
     var body: some View {
         VStack {
-            Text("Food Waste Calculator")
+            Text("Plastic Waste Calculator")
+                .multilineTextAlignment(.center)
                 .font(.largeTitle)
                 .padding()
 
-            TextField("Food Type", text: $viewModel.foodType)
+            TextField("Plastic Type (eg. plastic bottles)", text: $viewModel.foodType)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)
@@ -29,7 +30,7 @@ struct FoodWasteView: View {
                 .keyboardType(.decimalPad)
                 .padding(.horizontal)
 
-            Button("Calculate and Save Food Waste") {
+            Button("Calculate and Save Plastic Waste") {
                 viewModel.calculateFootprint()
             }
             .padding()

@@ -10,7 +10,7 @@ import Charts
 
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
-    let category: [String] = ["Fuel Usage","LPG Usage","Electricity Usage","Food Waste"]
+    let category: [String] = ["Fuel Usage","LPG Usage","Electricity Usage","Plastic Waste"]
     
     var body: some View {
         NavigationStack {
@@ -128,7 +128,7 @@ struct HomeView: View {
                             .padding(.horizontal, 38)
                             .padding(.top, 5)
                         }
-                        else if (viewModel.selectedCategory == "Food Waste") {
+                        else if (viewModel.selectedCategory == "Plastic Waste") {
                             NavigationLink(destination: FoodWasteView()) {
                                 Text("Continue")
                                     .foregroundStyle(Color.white)

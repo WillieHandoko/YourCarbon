@@ -17,7 +17,7 @@ struct LPGUsageView: View {
                 .font(.largeTitle)
                 .padding()
 
-            TextField("Enter LPG Amount (kg)", text: $viewModel.lpgAmount)
+            TextField("Enter LPG Amount (kg) (eg. 3,5,12)", text: $viewModel.lpgAmount)
                 .padding()
                 .background(Color.gray.opacity(0.2))
                 .cornerRadius(10)

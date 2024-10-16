@@ -14,7 +14,7 @@ class FoodWasteViewModel: ObservableObject {
     func calculateFootprint() {
         guard let weight = Double(weight) else { return }
 
-        let co2Footprint = weight * 1.9 // Approx CO2 per kg of food waste
+        let co2Footprint = weight * 6 // Approx CO2 per kg of food waste
         CoreDataManager.shared.saveFoodWaste(foodType: foodType, weight: weight, footprint: co2Footprint)
     }
 }
