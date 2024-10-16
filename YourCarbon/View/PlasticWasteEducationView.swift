@@ -33,17 +33,6 @@ struct PlasticWasteEducationView: View {
                 Text("""
                 Reducing plastic waste not only helps to prevent environmental degradation but also cuts down on carbon emissions associated with the entire lifecycle of plastic products. From production to disposal, minimizing plastic use can have a positive impact on both the planet and public health.
                 """)
-
-                Text("Sources:")
-                    .font(.headline)
-                VStack(alignment: .leading, spacing: 10) {
-                    Link("The Environmental Impact of Plastics", destination: URL(string: "https://www.nrdc.org/stories/environmental-impact-plastics")!)
-                    Link("How to Reduce Plastic Waste", destination: URL(string: "https://www.weforum.org/agenda/2018/06/how-to-reduce-plastic-waste/")!)
-                    Link("Plastic Waste and Climate Change", destination: URL(string: "https://www.unenvironment.org/interactive/beat-plastic-pollution/")!)
-                    Link("Sustainable Plastics", destination: URL(string: "https://www.worldwildlife.org/initiatives/plastics")!)
-                    Link("How Plastic Affects the Environment", destination: URL(string: "https://www.nationalgeographic.com/environment/article/plastic-pollution")!)
-                }
-                .foregroundColor(.blue)
             }
             .padding()
             .background(Color.gray.opacity(0.2))

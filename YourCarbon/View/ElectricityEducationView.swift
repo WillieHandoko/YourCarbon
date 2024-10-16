@@ -33,17 +33,6 @@ struct ElectricityEducationView: View {
                 Text("""
                 Additionally, unplugging devices that are not in use can help reduce electricity waste from standby power. Even when electronics are turned off, many continue to draw small amounts of power. Using power strips or unplugging devices manually can eliminate this "phantom load," further cutting down on unnecessary carbon emissions.
                 """)
-
-                Text("Sources:")
-                    .font(.headline)
-                VStack(alignment: .leading, spacing: 10) {
-                    Link("Electricity and the Environment", destination: URL(string: "https://www.epa.gov/energy/electricity-and-environment")!)
-                    Link("10 Ways to Save Energy at Home", destination: URL(string: "https://www.energy.gov/energysaver/energy-saver")!)
-                    Link("Renewable Energy and Carbon Emissions", destination: URL(string: "https://www.nrdc.org/stories/renewable-energy-and-carbon-emissions")!)
-                    Link("How to Optimize Your Electricity Use", destination: URL(string: "https://www.worldwildlife.org/initiatives/renewable-energy")!)
-                    Link("Smart Home Energy Efficiency", destination: URL(string: "https://www.energystar.gov/products/smart_home")!)
-                }
-                .foregroundColor(.blue)
             }
             .padding()
             .background(Color.gray.opacity(0.2))

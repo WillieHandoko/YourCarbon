@@ -34,17 +34,6 @@ struct LPGEducationView: View {
                 Text("""
                 The future of low-carbon heating solutions lies in renewable energy. However, until renewable sources become more widely available and affordable, making the most of the efficiency and lower emissions of LPG can still help in the transition to a cleaner energy future.
                 """)
-
-                Text("Sources:")
-                    .font(.headline)
-                VStack(alignment: .leading, spacing: 10) {
-                    Link("The Role of LPG in Energy Transition", destination: URL(string: "https://www.wlpga.org")!)
-                    Link("How LPG Can Help Reduce Emissions", destination: URL(string: "https://www.energy.gov/")!)
-                    Link("Benefits of LPG in Home Heating", destination: URL(string: "https://www.energy.gov/eere/renewables")!)
-                    Link("LPG and Its Impact on Climate Change", destination: URL(string: "https://www.unenvironment.org")!)
-                    Link("How to Improve LPG Efficiency", destination: URL(string: "https://energysavingtrust.org.uk")!)
-                }
-                .foregroundColor(.blue)
             }
             .padding()
             .background(Color.gray.opacity(0.2))

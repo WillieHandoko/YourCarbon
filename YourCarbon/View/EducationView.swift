@@ -31,6 +31,24 @@ struct EducationView: View {
                         EducationCategoryButton(title: "LPG")
                     }
                 }
+                HStack{
+                    Text("Sources:")
+                        .font(.headline)
+                        .padding(.leading,28)
+                    Spacer()
+                }
+                HStack{
+                    VStack(alignment: .leading, spacing: 10) {
+                        Link("U.S. Environmental Protection Agency", destination: URL(string: "https://www.epa.gov")!)
+                        Link("Natural Resources Defense Council", destination: URL(string: "https://www.nrdc.org")!)
+                        Link("United Nations Environment Programme", destination: URL(string: "https://www.unep.org")!)
+                        Link("World Resources Institute", destination: URL(string: "https://www.wri.org")!)
+                        Link("Energy", destination: URL(string: "https://www.energy.gov")!)
+                    }
+                    Spacer()
+                }
+                .padding(.leading,28)
+                .foregroundColor(.blue)
                 Spacer()
             }
             .padding()

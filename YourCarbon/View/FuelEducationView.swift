@@ -34,17 +34,6 @@ struct FuelEducationView: View {
                 Text("""
                 Reducing our dependence on fossil fuels will require a combination of individual action and systemic change. While technological advancements like electric vehicles are making a difference, reducing the overall demand for fuel through lifestyle changes and the promotion of cleaner transportation methods will be key in the fight against climate change.
                 """)
-
-                Text("Sources:")
-                    .font(.headline)
-                VStack(alignment: .leading, spacing: 10) {
-                    Link("The Impact of Transportation on Climate", destination: URL(string: "https://www.epa.gov/ghgemissions/sources-greenhouse-gas-emissions")!)
-                    Link("How Electric Vehicles Help the Environment", destination: URL(string: "https://www.nrdc.org/stories/how-electric-vehicles-help-environment")!)
-                    Link("Fuel Efficiency Tips", destination: URL(string: "https://www.energy.gov/eere/vehicles/fuel-efficiency-tips")!)
-                    Link("Benefits of Public Transport", destination: URL(string: "https://www.uitp.org/public-transport-benefits/")!)
-                    Link("Sustainable Transport and Climate", destination: URL(string: "https://www.unenvironment.org/explore-topics/transport/what-we-do/promote-sustainable-mobility")!)
-                }
-                .foregroundColor(.blue)
             }
             .padding()
             .background(Color.gray.opacity(0.2))
