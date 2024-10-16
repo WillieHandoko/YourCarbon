@@ -15,11 +15,15 @@ struct ContentView: View {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
-
+            
             StatisticsView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("Statistics")
+                }
+            EducationView()  // New Education Tab
+                .tabItem {
+                    Label("Education", systemImage: "book.fill")
                 }
         }
     }
