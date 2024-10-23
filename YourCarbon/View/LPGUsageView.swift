@@ -10,6 +10,7 @@ import SwiftUI
 struct LPGUsageView: View {
     
     @ObservedObject private var viewModel = LPGUsageViewModel()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -33,6 +34,7 @@ struct LPGUsageView: View {
 
             Button("Calculate LPG Footprint") {
                 viewModel.calculateFootprint()
+                presentationMode.wrappedValue.dismiss()
             }
             .padding()
             .background(Color.green)

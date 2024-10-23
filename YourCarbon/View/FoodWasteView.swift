@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FoodWasteView: View {
     @StateObject private var viewModel = FoodWasteViewModel()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -32,6 +33,7 @@ struct FoodWasteView: View {
 
             Button("Calculate and Save Plastic Waste") {
                 viewModel.calculateFootprint()
+                presentationMode.wrappedValue.dismiss()
             }
             .padding()
             .background(Color.green)

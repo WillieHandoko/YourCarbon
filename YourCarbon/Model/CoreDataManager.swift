@@ -120,6 +120,7 @@ class CoreDataManager {
             return []
         }
     }
+    
 
     // MARK: - FoodWaste Management
     func saveFoodWaste(foodType: String, weight: Double, footprint: Double) {

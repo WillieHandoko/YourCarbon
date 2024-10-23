@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ElectricityUsageView: View {
     @StateObject private var viewModel = ElectricityUsageViewModel()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         VStack {
@@ -32,6 +33,7 @@ struct ElectricityUsageView: View {
 
             Button("Calculate and Save Electricity Usage") {
                 viewModel.calculateFootprint()
+                presentationMode.wrappedValue.dismiss()
             }
             .padding()
             .background(Color.green)

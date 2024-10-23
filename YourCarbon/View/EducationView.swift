@@ -12,7 +12,7 @@ struct EducationView: View {
         NavigationView {
             VStack(spacing: 20) {
                 Text("Learn about Your Carbon Footprint")
-                    .font(.largeTitle)
+                    .font(.title2)
                     .foregroundColor(.white)
                     .padding()
                 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FuelUsageView: View {
     @StateObject private var viewModel = FuelUsageViewModel()
+    @Environment(\.presentationMode) var presentationMode
     let fuelType: [String] = ["Gasoline","Diesel"]
     @State var choosedGasoline: Bool = true
     @State var choosedDiesel: Bool = false
@@ -97,6 +98,7 @@ struct FuelUsageView: View {
                 if (choosedGasoline && !choosedDiesel) {
                     Button("Calculate and Save Fuel Usage") {
                         viewModel.calculateFootprintGasoline()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -110,6 +112,7 @@ struct FuelUsageView: View {
                 if (choosedDiesel && !choosedGasoline) {
                     Button("Calculate and Save Fuel Usage") {
                         viewModel.calculateFootprintDiesel()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
                     .foregroundStyle(.white)
@@ -126,6 +129,7 @@ struct FuelUsageView: View {
                 if (choosedGasoline && !choosedDiesel) {
                     Button("Calculate and Save Fuel Usage") {
                         viewModel.calculateFootprintGasoline()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
                     .background(Color.green)
@@ -137,6 +141,7 @@ struct FuelUsageView: View {
                 if (choosedDiesel && !choosedGasoline) {
                     Button("Calculate and Save Fuel Usage") {
                         viewModel.calculateFootprintDiesel()
+                        presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
                     .background(Color.green)
