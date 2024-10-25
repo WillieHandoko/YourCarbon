@@ -38,14 +38,13 @@ struct LPGUsageView: View {
             }
             .padding()
             .background(Color.green)
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .cornerRadius(10)
             .padding()
 
             Spacer()
         }
         .padding()
-        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
 

@@ -180,7 +180,6 @@ struct EmissionDetailView: View {
             Spacer()
         }
         .padding()
-        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
     
     // Helper date formatter

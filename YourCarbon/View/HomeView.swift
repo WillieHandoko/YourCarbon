@@ -21,6 +21,7 @@ struct HomeView: View {
                         viewModel.showTargetSetting = true
                     }, label: {
                         Image(systemName: "gear.circle")
+                            .foregroundStyle(Color.green)
                             .font(.largeTitle)
                             .padding(.trailing,5)
                     })
@@ -65,7 +66,7 @@ struct HomeView: View {
                         Text("This Month : \(viewModel.totalFootprints, specifier: "%.3f") kg CO₂")
                     }
                     .font(.title3)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding(.top, 10)
                     
                     
@@ -80,7 +81,9 @@ struct HomeView: View {
                             .font(.footnote)
                             .fontWeight(.medium)
                         }
+                        .listRowBackground(Color.gray.opacity(0.15))
                     }
+                    .scrollContentBackground(.hidden)
                     .frame(width: 365, height: 90)
                     .padding(.horizontal, 38)
                     .padding(.top,5)
@@ -89,7 +92,7 @@ struct HomeView: View {
                         if (viewModel.selectedCategory == "Fuel Usage") {
                             NavigationLink(destination: FuelUsageView()) {
                                 Text("Continue")
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.primary)
                                     .background{
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.gray.opacity(0.2))
@@ -103,7 +106,7 @@ struct HomeView: View {
                         else if (viewModel.selectedCategory == "LPG Usage") {
                             NavigationLink(destination: LPGUsageView()) {
                                 Text("Continue")
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.primary)
                                     .background{
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.gray.opacity(0.2))
@@ -117,7 +120,7 @@ struct HomeView: View {
                         else if (viewModel.selectedCategory == "Electricity Usage") {
                             NavigationLink(destination: ElectricityUsageView()) {
                                 Text("Continue")
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.primary)
                                     .background{
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.gray.opacity(0.2))
@@ -131,7 +134,7 @@ struct HomeView: View {
                         else if (viewModel.selectedCategory == "Plastic Waste") {
                             NavigationLink(destination: FoodWasteView()) {
                                 Text("Continue")
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.primary)
                                     .background{
                                         RoundedRectangle(cornerRadius: 10)
                                             .fill(Color.gray.opacity(0.2))
@@ -149,7 +152,6 @@ struct HomeView: View {
                 Spacer()
             }
             .padding()
-            .background(Color.black.edgesIgnoringSafeArea(.all))
             .sheet(isPresented: $viewModel.showTargetSetting) {
                 TargetSettingView(viewModel: viewModel)  // This fixes the error
             }
@@ -197,7 +199,7 @@ struct BarProgressStyle: ProgressViewStyle {
                     
                     currentValueLabel
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .padding(.leading,10)
                 }
             }

@@ -14,7 +14,7 @@ struct ElectricityUsageView: View {
     var body: some View {
         VStack {
             Text("Electricity Usage Calculator")
-                .font(.largeTitle)
+                .font(.title)
                 .padding()
 
             TextField("Electricity Usage (W)", text: $viewModel.electricityUsage)
@@ -37,14 +37,13 @@ struct ElectricityUsageView: View {
             }
             .padding()
             .background(Color.green)
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
             .cornerRadius(10)
             .padding()
 
             Spacer()
         }
         .padding()
-        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
 

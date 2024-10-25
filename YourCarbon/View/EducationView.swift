@@ -13,7 +13,7 @@ struct EducationView: View {
             VStack(spacing: 20) {
                 Text("Learn about Your Carbon Footprint")
                     .font(.title2)
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)
                     .padding()
                 
                 // Navigation to each category
@@ -52,7 +52,6 @@ struct EducationView: View {
                 Spacer()
             }
             .padding()
-            .background(Color.black.edgesIgnoringSafeArea(.all))
         }
     }
 }
@@ -66,7 +65,7 @@ struct EducationCategoryButton: View {
             .fontWeight(.bold)
             .padding()
             .background(Color.gray.opacity(0.2))
-            .foregroundColor(.white)
+            .foregroundColor(.primary)
             .cornerRadius(10)
             .frame(maxWidth: .infinity)
     }

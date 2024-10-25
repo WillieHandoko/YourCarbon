@@ -41,7 +41,6 @@ struct FuelEducationView: View {
             .shadow(radius: 5)
             .padding()
         }
-        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
 
