@@ -37,7 +37,7 @@ struct FuelUsageView: View {
                     choosedDiesel = false
                 } label: {
                     Text("Gasoline")
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(Color.primary)
                         .background{
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(
@@ -57,7 +57,7 @@ struct FuelUsageView: View {
                     choosedGasoline = false
                 } label: {
                     Text("Diesel")
-                        .foregroundStyle(Color.white)
+                        .foregroundStyle(Color.primary)
                         .background{
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(
@@ -101,7 +101,7 @@ struct FuelUsageView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .background(Color.gray.opacity(0.2))
                     .foregroundColor(.black)
                     .cornerRadius(10)
@@ -115,7 +115,7 @@ struct FuelUsageView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                     .padding()
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .background(Color.gray.opacity(0.2))
                     .foregroundColor(.black)
                     .cornerRadius(10)
@@ -162,7 +162,6 @@ struct FuelUsageView: View {
             HomeView()
         }
         .padding()
-        .background(Color.black.edgesIgnoringSafeArea(.all))
     }
 }
 

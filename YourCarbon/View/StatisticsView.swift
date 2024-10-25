@@ -26,7 +26,7 @@ struct StatisticsView: View {
                         }
                     }) {
                         Image(systemName: "chevron.left")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .padding()
                     }
                     
@@ -34,7 +34,7 @@ struct StatisticsView: View {
 
                     // Display the current date
                     Text(viewModel.getFormattedDate(date: selectedDate))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .font(.headline)
                     
                     Spacer()
@@ -47,7 +47,7 @@ struct StatisticsView: View {
                         }
                     }) {
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.white)
+                            .foregroundColor(.primary)
                             .padding()
                     }
                 }
@@ -73,7 +73,7 @@ struct StatisticsView: View {
                         self.chartScale = 1000
                     } label: {
                         Text("1000")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundColor(.primary)
                             .background
                         {
                             RoundedRectangle(cornerRadius: 10)
@@ -87,7 +87,7 @@ struct StatisticsView: View {
                         self.chartScale = 2500
                     } label: {
                         Text("2500")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundColor(.primary)
                             .background
                         {
                             RoundedRectangle(cornerRadius: 10)
@@ -102,7 +102,7 @@ struct StatisticsView: View {
                         self.chartScale = 5000
                     } label: {
                         Text("5000")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundColor(.primary)
                             .background
                         {
                             RoundedRectangle(cornerRadius: 10)
@@ -116,7 +116,7 @@ struct StatisticsView: View {
                         self.chartScale = 10000
                     } label: {
                         Text("10000")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundColor(.primary)
                             .background
                         {
                             RoundedRectangle(cornerRadius: 10)
@@ -130,7 +130,7 @@ struct StatisticsView: View {
                         self.chartScale = 15000
                     } label: {
                         Text("15000")
-                            .foregroundStyle(Color.yellow)
+                            .foregroundColor(.primary)
                             .background
                         {
                             RoundedRectangle(cornerRadius: 10)
@@ -174,37 +174,42 @@ struct StatisticsView: View {
                                 Text("Fuel Emissions")
                                 Spacer()
                                 Text("\(viewModel.fuelEmissions, specifier: "%.3f") kg CO₂")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.orange)
                             }
                         }
+                        .listRowBackground(Color.gray.opacity(0.15))
                         
                         NavigationLink(destination: EmissionDetailView(category: "Electricity", records: viewModel.electricityRecords)) {
                             HStack {
                                 Text("Electricity Usage")
                                 Spacer()
                                 Text("\(viewModel.electricityEmissions, specifier: "%.3f") kg CO₂")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.orange)
                             }
                         }
+                        .listRowBackground(Color.gray.opacity(0.15))
                         
                         NavigationLink(destination: EmissionDetailView(category: "LPG", records: viewModel.lpgRecords)) {
                             HStack {
                                 Text("LPG Usage")
                                 Spacer()
                                 Text("\(viewModel.lpgEmissions, specifier: "%.3f") kg CO₂")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.orange)
                             }
                         }
+                        .listRowBackground(Color.gray.opacity(0.15))
                         
                         NavigationLink(destination: EmissionDetailView(category: "Plastic Waste", records: viewModel.foodWasteRecords)) {
                             HStack {
                                 Text("Plastic Waste")
                                 Spacer()
                                 Text("\(viewModel.foodWasteEmissions, specifier: "%.3f") kg CO₂")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(.orange)
                             }
                         }
+                        .listRowBackground(Color.gray.opacity(0.15))
                     }
+                    .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
                 }
             }
@@ -212,7 +217,6 @@ struct StatisticsView: View {
             .onAppear {
                 viewModel.fetchDailyData(for: selectedDate) // Fetch data for the current day on view load
             }
-            .background(Color.black.edgesIgnoringSafeArea(.all))
         }
     }
 }
