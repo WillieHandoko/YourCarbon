@@ -9,6 +9,12 @@ import SwiftUI
 
 @main
 struct YourCarbonApp: App {
+    init() {
+        // Request notification authorization when the app launches
+        NotificationManager.shared.requestAuthorization()
+        NotificationManager.shared.scheduleDailyReminders()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
