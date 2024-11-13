@@ -6,30 +6,21 @@
 //
 
 import AppIntents
-import UserNotifications
 
 struct LPGUsageIntent: AppIntent {
     static var title: LocalizedStringResource = "Calculate LPG Emission"
     static var description: String = "Calculate emissions based on LPG usage."
 
-    @Parameter(title: "LPG Consumption (kg)")
-    var lpgConsumption: Double
+    @Parameter(title: "LPG Amount (kg)")
+    var lpgAmount: Double
+
+    @Parameter(title: "Usage Time (hours)")
+    var usageTime: Int
 
     static var openAppWhenRun: Bool = false
 
     func perform() async throws -> some IntentResult {
-        let co2Emission = lpgConsumption * 2.9 // Example factor for LPG
-        sendSuccessNotification(for: "LPG Usage")
-        return .result(dialog: "\(co2Emission, specifier: "%.2f") kg CO₂")
-    }
-    
-    private func sendSuccessNotification(for type: String) {
-        let content = UNMutableNotificationContent()
-        content.title = "\(type) Data Added"
-        content.body = "Your \(type.lowercased()) usage data has been added successfully!"
-        content.sound = .default
-
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request)
+        let co2Footprint = lpgAmount * 2.9925 // CO2 per kg of LPG
+        return .result(dialog: "\(co2Footprint, specifier: "%.2f") kg CO₂")
     }
 }

@@ -8,16 +8,16 @@
 import AppIntents
 
 struct FuelUsageIntent: AppIntent {
-    static var title: LocalizedStringResource = "Calculate Fuel Emission"
-    static var description: String = "Calculate fuel emissions based on user input data."
+    static var title: LocalizedStringResource = "Calculate Fuel Usage Emission"
+    static var description: String = "Calculate emission based on fuel usage."
 
-    @Parameter(title: "Vehicle Type", default: "Car")
+    @Parameter(title: "Vehicle Type")
     var vehicleType: String
 
     @Parameter(title: "Fuel Type", default: "Gasoline")
     var fuelType: String
 
-    @Parameter(title: "Fuel Consumption (L)", default: 0.0)
+    @Parameter(title: "Fuel Consumption (km/liters)", default: 0.0)
     var fuelConsumption: Double
 
     @Parameter(title: "Vehicle Range (km)", default: 0.0)
@@ -26,27 +26,14 @@ struct FuelUsageIntent: AppIntent {
     static var openAppWhenRun: Bool = false
 
     func perform() async throws -> some IntentResult {
-        let co2Emission = calculateFuelEmissions(
-            vehicleType: vehicleType,
-            fuelType: fuelType,
-            fuelConsumption: fuelConsumption,
-            vehicleRange: vehicleRange
-        )
-        
-        return .result(
-            dialog: "\(co2Emission, specifier: "%.2f") kg CO₂"
-        )
-    }
+        // Calculate CO2 footprint based on fuel type
+        let co2Footprint: Double
+        if fuelType.lowercased() == "gasoline" {
+            co2Footprint = ((0.7890 / (fuelConsumption * 1000 * 1000)) * 69300 * 41.868) * vehicleRange
+        } else {
+            co2Footprint = ((0.8677 / (fuelConsumption * 1000 * 1000)) * 74100 * 41.868) * vehicleRange
+        }
 
-    private func calculateFuelEmissions(
-        vehicleType: String,
-        fuelType: String,
-        fuelConsumption: Double,
-        vehicleRange: Double
-    ) -> Double {
-        let emissionFactor = fuelType == "Gasoline" ? 2.31 : 2.68 // Example factors
-        return (fuelConsumption / vehicleRange) * emissionFactor
+        return .result(dialog: "\(co2Footprint, specifier: "%.2f") kg CO₂ emitted.")
     }
-    
-    
 }

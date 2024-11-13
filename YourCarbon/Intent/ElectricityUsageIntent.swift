@@ -6,30 +6,24 @@
 //
 
 import AppIntents
-import UserNotifications
 
 struct ElectricityUsageIntent: AppIntent {
     static var title: LocalizedStringResource = "Calculate Electricity Emission"
     static var description: String = "Calculate emissions based on electricity usage."
 
-    @Parameter(title: "Electricity Consumption (kWh)")
-    var electricityConsumption: Double
+    @Parameter(title: "Electricity Usage (Wh)")
+    var electricityUsage: Double
+
+    @Parameter(title: "Usage Time (hours)")
+    var usageTime: Int
 
     static var openAppWhenRun: Bool = false
 
     func perform() async throws -> some IntentResult {
-        let co2Emission = electricityConsumption * 0.5 // Example factor for electricity
-        sendSuccessNotification(for: "Electricity Usage")
-        return .result(dialog: "\(co2Emission, specifier: "%.2f") kg CO₂")
-    }
-    
-    private func sendSuccessNotification(for type: String) {
-        let content = UNMutableNotificationContent()
-        content.title = "\(type) Data Added"
-        content.body = "Your \(type.lowercased()) usage data has been added successfully!"
-        content.sound = .default
-
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
-        UNUserNotificationCenter.current().add(request)
+        let electricityUsageInKWh = electricityUsage / 1000
+        let electricityAmount = electricityUsageInKWh * Double(usageTime)
+        
+        let co2Footprint = electricityAmount * 0.7771589 // CO2 per kWh
+        return .result(dialog: "\(co2Footprint, specifier: "%.2f") kg CO₂")
     }
 }

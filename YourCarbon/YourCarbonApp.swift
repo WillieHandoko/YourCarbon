@@ -9,15 +9,21 @@ import SwiftUI
 
 @main
 struct YourCarbonApp: App {
+    
+    var statisticsViewModel = StatisticsViewModel()
+    
     init() {
         // Request notification authorization when the app launches
         NotificationManager.shared.requestAuthorization()
         NotificationManager.shared.scheduleDailyReminders()
     }
-
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    statisticsViewModel.calculateAndNotifyEmissions(for: Date())
+                }
         }
     }
 }
