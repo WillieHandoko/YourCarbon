@@ -87,6 +87,7 @@ struct HomeView: View {
                     .frame(width: 365, height: 90)
                     .padding(.horizontal, 38)
                     .padding(.top,5)
+                    .scrollDisabled(true)
                     
                     VStack{
                         if (viewModel.selectedCategory == "Fuel Usage") {

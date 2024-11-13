@@ -93,6 +93,7 @@ class StatisticsViewModel: ObservableObject {
         // Schedule exceeded emission notification if applicable
         if totalEmissions > emissionLimit {
             NotificationManager.shared.scheduleExceededEmissionNotification(totalEmissions: totalEmissions, emissionLimit: emissionLimit, emissionDifference: emissionDifference)
+//            NotificationManager.shared.whenTheAppOpen(totalEmissions: totalEmissions, emissionLimit: emissionLimit, emissionDifference: emissionDifference)
         }
     }
     

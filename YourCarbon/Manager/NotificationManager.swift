@@ -46,7 +46,7 @@ class NotificationManager {
             content.body = "Your daily emission is \(String(format: "%.2f", emissionDifference)) kg CO₂e more than yesterday."
             content.sound = .default
             
-            let notificationTimes = [8, 12, 16, 20]
+            let notificationTimes = [12,20]
             
             for selectedHour in notificationTimes {
                 var dateComponents = DateComponents()
@@ -63,6 +63,24 @@ class NotificationManager {
             }
         }
     }
+    
+//    func whenTheAppOpen(totalEmissions: Double, emissionLimit: Double, emissionDifference: Double) {
+//        if totalEmissions > emissionLimit {
+//            let content = UNMutableNotificationContent()
+//            content.title = "Daily Emission More Than Yesterday"
+//            content.body = "Your daily emission is \(String(format: "%.2f", emissionDifference)) kg CO₂e more than yesterday."
+//            content.sound = .default
+//            
+//            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+//            let request = UNNotificationRequest(identifier: "exceededLimit", content: content, trigger: trigger)
+//            
+//            UNUserNotificationCenter.current().add(request) { error in
+//                if let error = error {
+//                    print("Error scheduling exceeded emission notification: \(error)")
+//                }
+//            }
+//        }
+//    }
     
     func scheduleDailyReminders() {
         let morningContent = UNMutableNotificationContent()
