@@ -46,16 +46,19 @@ class NotificationManager {
             content.body = "Your daily emission is \(String(format: "%.2f", emissionDifference)) kg CO₂e more than yesterday."
             content.sound = .default
             
+            let notificationTimes = [8, 12, 16, 20]
             
-            var dateComponents = DateComponents()
-            dateComponents.hour = 19 // 10 PM
-            
-            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-            let request = UNNotificationRequest(identifier: "exceededLimit", content: content, trigger: trigger)
-            
-            UNUserNotificationCenter.current().add(request) { error in
-                if let error = error {
-                    print("Error scheduling exceeded emission notification: \(error)")
+            for selectedHour in notificationTimes {
+                var dateComponents = DateComponents()
+                dateComponents.hour = selectedHour // 10 PM
+                
+                let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+                let request = UNNotificationRequest(identifier: "exceededLimit", content: content, trigger: trigger)
+                
+                UNUserNotificationCenter.current().add(request) { error in
+                    if let error = error {
+                        print("Error scheduling exceeded emission notification: \(error)")
+                    }
                 }
             }
         }
